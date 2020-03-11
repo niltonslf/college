@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "./bubblesort.h"
 
+/**
+ *  Complexidade assintótica de O(n²)
+ */
 
  int main(void) {
 
