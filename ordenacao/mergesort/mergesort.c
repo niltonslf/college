@@ -8,8 +8,8 @@ void merge(int vetor[], int comeco, int meio, int fim);
 int main(void)
 {
 
-  int SIZE = 7;
-  int dados[7] = {0,5,4,3,2,1,9};
+  int SIZE = 5;
+  int dados[5] = {4,7,2,1,5};
 
   // DEBUG
   for (int i = 0; i < SIZE; i++)
@@ -33,7 +33,6 @@ void mergeSort(int vetor[], int comeco, int fim)
 
     mergeSort(vetor, comeco, meio);
     mergeSort(vetor, meio + 1, fim);
-
     merge(vetor, comeco, meio, fim);
   }
 }
@@ -50,6 +49,9 @@ void merge(int vetor[], int comeco, int meio, int fim)
 
   while (com1 <= meio && com2 <= fim) 
   {
+
+    printf("\ncom1 %d < com2 %d", vetor[com1],vetor[com2]);
+
     if(vetor[com1] < vetor[com2]) {
       vetAux[comAux] = vetor[com1];
       com1++;
