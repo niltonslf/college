@@ -1,86 +1,68 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
+#include <stdlib.h>
 
-void mergeSort(int vetor[], int comeco, int fim);
-void merge(int vetor[], int comeco, int meio, int fim);
+void mergeSort(int vetor[], int left, int right);
+void merge(int vetor[], int left, int right, int middle);
 
-int main(void)
+int main()
 {
+  int vetor[5] = {7, 8, 1, 9, 70};
+  mergeSort(vetor, 0, 4);
 
-  int SIZE = 5;
-  int dados[5] = {4,7,2,1,5};
+  for (int i = 0; i < 5; i++)
+    printf("%d ", vetor[i]);
 
-  // DEBUG
-  for (int i = 0; i < SIZE; i++)
-    printf("%d ", dados[i]);
-
-  mergeSort(dados, 0, SIZE);
-
-  // DEBUG
-  printf("\n");
-  for (int i = 0; i < SIZE; i++)
-    printf("%d ", dados[i]);
-
-  return 1;
+  return 0;
 }
 
-void mergeSort(int vetor[], int comeco, int fim)
+/**
+ * INTERCALAÇÃO DOS ELEMENTOS
+ **/
+void merge(int vetor[], int left, int right, int middle)
 {
-  if (comeco < fim)
-  {
-    int meio = floor((comeco  + fim) / 2);
+  int *aux = (int *)malloc((right - left + 1) * sizeof(int));
+  if (aux == NULL)
+    abort();
 
-    mergeSort(vetor, comeco, meio);
-    mergeSort(vetor, meio + 1, fim);
-    merge(vetor, comeco, meio, fim);
+  int i, j, k, tam;
+  i = left;
+  j = middle + 1;
+  k = 0;
+  tam = right - left;
+
+  while (i <= middle && j <= right)
+  {
+
+    if (vetor[i] < vetor[j])
+      aux[k++] = vetor[i++];
+    else
+      aux[k++] = vetor[j++];
+
+    while (i <= middle)
+      aux[k++] = vetor[i++];
+
+    while (j <= right)
+      aux[k++] = vetor[j++];
   }
+
+  for (k = 0; k <= tam; k++)
+    vetor[left + k] = aux[k];
+
+  free(aux);
 }
 
-void merge(int vetor[], int comeco, int meio, int fim)
+/**
+ * SEPARAÇÃO DOS SUBCONJUNTOS
+ **/
+void mergeSort(int vetor[], int left, int right)
 {
-  int com1 = comeco, 
-      com2 = meio+1, 
-      comAux = 0, 
-      tam = fim-comeco+1;
-
-  int *vetAux;
-  vetAux = (int*) malloc(tam * sizeof(int));
-
-  while (com1 <= meio && com2 <= fim) 
+  if (left < right)
   {
+    int middle = floor((right + left) / 2);
 
-    printf("\ncom1 %d < com2 %d", vetor[com1],vetor[com2]);
-
-    if(vetor[com1] < vetor[com2]) {
-      vetAux[comAux] = vetor[com1];
-      com1++;
-    } else {
-      vetAux[comAux] = vetor[com2];
-      com2++;
-    }
-    comAux++;
+    mergeSort(vetor, left, middle);
+    mergeSort(vetor, middle + 1, right);
+    merge(vetor, left, right, middle);
   }
-  
-
-  while (com1 <= meio) 
-  {
-    vetAux[comAux] = vetor[com1];
-    comAux++;
-    com1++;
-  }
-
-  while (com2 <= fim) 
-  {
-    vetAux[comAux] = vetor[com2];
-    comAux++;
-    com2++;
-  }
-  
-    for(comAux = comeco; comAux <= fim; comAux++){    //Move os elementos de volta para o vetor original
-      vetor[comAux] = vetAux[comAux-comeco];
-  }
-  
-  free(vetAux);
-
 }
