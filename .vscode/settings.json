@@ -4,6 +4,7 @@
     "stdio.h": "c",
     "pilha.h": "c",
     "pilhasequencial.h": "c",
-    "stdlib.h": "c"
+    "stdlib.h": "c",
+    "pilhafloat.h": "c"
   }
 }
