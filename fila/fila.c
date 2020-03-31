@@ -72,16 +72,17 @@ void FilaDestroi(Fila *F)
 int main(int argc, char const *argv[])
 {
 
-  Fila filaDaputa = criaFila(3);
-  filaEnfileira(2, filaDaputa);
-  filaEnfileira(1, filaDaputa);
-  filaEnfileira(4, filaDaputa);
+  Fila fila = criaFila(3);
+  filaEnfileira(2, fila);
+  filaEnfileira(1, fila);
+  filaEnfileira(4, fila);
 
-  printf("%d\n", FilaDesenfileira(filaDaputa));
-  filaEnfileira(4, filaDaputa);
-  printf("%d\n", FilaDesenfileira(filaDaputa));
-  printf("%d\n", FilaDesenfileira(filaDaputa));
-  printf("%d\n", FilaDesenfileira(filaDaputa));
+  printf("%d\n", FilaDesenfileira(fila));
+  filaEnfileira(4, fila);
+  printf("%d\n", FilaDesenfileira(fila));
+  printf("%d\n", FilaDesenfileira(fila));
+  printf("%d\n", FilaDesenfileira(fila));
+  FilaDestroi(*fila);
 
   return 0;
 }
