@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #define filaAvanca(i) (i = (i + 1) % F->max)
+// #define test(i) (i = (def + i))
 
 typedef char Itemf;
 
@@ -82,7 +83,14 @@ int main(int argc, char const *argv[])
   printf("%d\n", FilaDesenfileira(fila));
   printf("%d\n", FilaDesenfileira(fila));
   printf("%d\n", FilaDesenfileira(fila));
-  FilaDestroi(*fila);
+  FilaDestroi(&fila);
+
+  // int def = 65;
+  // int valor = 2;
+
+  // test(valor);
+
+  // printf("testando define:%d \n", valor);
 
   return 0;
 }
