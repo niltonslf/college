@@ -8,54 +8,130 @@ typedef struct
   float duracao;
 } Song;
 
-typedef struct
+typedef struct Node
 {
   Song item;
-  Node *next;
+  struct Node *next;
 } Node, *List;
 
-List *createNode(Song element, List next)
+List *createList()
 {
   // Aloca espaço em memória para um novo nó
-  List item = malloc(sizeof(Node));
-  item->item = element; // adiciona em item o elemento recebido via argumento
-  item->next = next;    // Define o próximo nó
-  return item;          // re torna item criado
+  List *list = (List *)malloc(sizeof(List));
+  if (list != NULL)
+    *list = NULL;
+
+  return list;
 }
 
-void showList(List list)
+void freeList(List *list)
+{
+  if (list != NULL && *list != NULL)
+  {
+    Node *aux;
+    Node *node = *list;
+    while (*list != node->next)
+    {
+      aux = node;
+      node = node->next;
+      free(aux);
+    }
+    free(node);
+    free(list);
+  }
+}
+
+int isFullList(List *list)
+{
+  return 0;
+}
+
+int isEmptyList(List *list)
+{
+  if (list == NULL || *list == NULL)
+    return 1;
+  return 0;
+}
+
+int insertListBegin(List *list, Song song)
+{
+  // lista está vazia?
+  if (list == NULL)
+    return 0;
+
+  Node *node = (Node *)malloc(sizeof(Node));
+  if (node == NULL) // conseguiu fazer a alocação de memória para este nó?
+    return 0;
+
+  node->item = song;
+
+  if (*list == NULL) // O conteúdo de lista está vazia? (primeiro item)
+  {
+    *list = node;
+    node->next = node;
+  }
+  else
+  {
+    Node *aux = *list;
+    while (aux->next != *list)
+      aux = aux->next;
+
+    aux->next = node;
+    node->next = *list;
+    *list = node;
+  }
+  return 1;
+}
+
+int insertListEnd(List *list, Song song)
 {
   if (list == NULL)
-    return;
+    return 0;
 
-  while (list != NULL)
+  Node *node = (Node *)malloc(sizeof(Node));
+  if (node == NULL)
+    return 0;
+
+  node->item = song;
+  if (*list == NULL) // o conteúdo de list está vazio?/ é o primeiro item?
   {
-    printSong(list);
-    list = list->next;
+    *list = node;
+    node->next = node;
   }
+  else
+  {
+    Node *aux = *list;
+    while (aux->next != *list)
+      aux = aux->next;
+
+    aux->next = node;
+    node->next = *list;
+  }
+  return 1;
 }
 
-void destroy(List *list)
+void showList(List *list)
 {
-  while (*list != NULL)
-  {
-    List item = *list;
-    *list = item->next;
-    free(item);
+  if (list == NULL || *list == NULL)
+    return;
 
-    printf("Song %s removed", item->item.nome);
-  }
+  Node *aux = *list;
+  do
+  {
+    printSong(aux->item);
+    aux = aux->next;
+  } while (aux != *list);
 }
 
 /**
  *  Recebe uma struct Song e realiza a impressão das informações 
  *  dessa estruura. 
  **/
-void printSong(Song *song)
+void printSong(Song song)
 {
-  printf("Name: %s \n", song->nome);
-  printf("Author: %s \n", song->artista);
-  printf("Duration: %f minutes \n", song->duracao);
+  printf("Name: %s \n", song.nome);
+  printf("Author: %s \n", song.artista);
+  printf("Duration: %f minutes \n", song.duracao);
 
   printf("\n");
 }
@@ -66,18 +142,19 @@ int main()
   Song musicTest2 = {"XO", "EDEN", 4.5};
   Song musicTest3 = {"JOLT", "Unlike pluto", 2};
 
-  List playlist = createNode(musicTest, createNode(musicTest2, createNode(musicTest3, NULL)));
+  List *playlist = createList();
+  insertListEnd(playlist, musicTest);
+  insertListEnd(playlist, musicTest2);
+  insertListEnd(playlist, musicTest3);
 
-  List currentSong = NULL;
   int option = -1;
-
   while (option != 0)
   {
     printf("\n--------- MENU ---------\n");
     printf("1- Ver playlist\n");
     printf("2- Tocar playlist\n");
 
-    if (currentSong != NULL)
+    if (playlist != NULL)
     {
       printf("3- Ver música tocando\n");
       printf("4- Próxima música\n");
@@ -104,22 +181,21 @@ int main()
       break;
 
     case 2:
-      printf("\n---------INICIANDO MÚSICA ---------\n");
-      currentSong = playlist;
+      printf("\n---------TOCANDO ---------\n");
+      printSong((*playlist)->item);
       break;
 
     case 3:
       printf("\n--------- MÚSICA EM ANDAMENTO ---------\n");
-      printSong(&currentSong->item);
+      printSong((*playlist)->item);
       printf("---------------------------------\n");
       break;
 
     case 4:
       printf("\n--------- MÚSICA AVANÇADA ---------\n");
-      if (currentSong->next == NULL || currentSong == NULL)
-        printf('ÚLTIMO ITEM DA LISTA');
-      else
-        currentSong = currentSong->next;
+      *playlist = (*playlist)->next;
+      printf("\n---------TOCANDO ---------\n");
+      printSong((*playlist)->item);
       break;
 
     default:
