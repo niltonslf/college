@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct
 {
@@ -147,14 +148,52 @@ void printSong(Song song)
 
 int main()
 {
-  Song musicTest = {"room 409", "Bullet for my valentine", 3};
-  Song musicTest2 = {"XO", "EDEN", 4.5};
-  Song musicTest3 = {"JOLT", "Unlike pluto", 2};
+
+  FILE *file;
+  char fileData[100];
 
   List *playlist = createList();
-  insertListEnd(playlist, musicTest);
-  insertListEnd(playlist, musicTest2);
-  insertListEnd(playlist, musicTest3);
+
+  // Abre arquivo no modo leitura
+  file = fopen("./playlist.txt", "r");
+  if (file == NULL)
+  {
+    printf("Erro ao abrir arquivo");
+    return -1;
+  }
+
+  // run into all songs
+  while (fgets(fileData, 100, file) != NULL)
+  {
+    // split song line in parts
+    char *song = strtok(fileData, "|");
+
+    int i = 0;
+    Song newSong;
+
+    while (song != NULL)
+    {
+      // Save currente song parts
+      switch (i)
+      {
+      case 0:
+        strncpy(newSong.nome, song, 50);
+        i++;
+        break;
+      case 1:
+        strncpy(newSong.artista, song, 50);
+        i++;
+        break;
+      case 2:
+        newSong.duracao = strtof(song, NULL);
+        i++;
+        break;
+      }
+      song = strtok(NULL, "|");
+    }
+    insertListBegin(playlist, newSong);
+  }
+  fclose(file);
 
   int option = -1;
   while (option != 0)
