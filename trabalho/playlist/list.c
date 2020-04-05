@@ -8,19 +8,19 @@ typedef struct
   float duracao;
 } Song;
 
-typedef struct Node
+typedef struct
 {
   Song item;
-  struct Node *next;
-} * List;
+  Node *next;
+} Node, *List;
 
-List createNode(Song element, List next)
+List *createNode(Song element, List next)
 {
   // Aloca espaço em memória para um novo nó
-  List item = malloc(sizeof(struct Node));
+  List item = malloc(sizeof(Node));
   item->item = element; // adiciona em item o elemento recebido via argumento
   item->next = next;    // Define o próximo nó
-  return item;          // retorna item criado
+  return item;          // re torna item criado
 }
 
 void showList(List list)
@@ -96,6 +96,7 @@ int main()
    **/
     switch (option)
     {
+
     case 1:
       printf("\n--------- SUA PLAYLIST ---------\n");
       showList(playlist);
@@ -112,13 +113,13 @@ int main()
       printSong(&currentSong->item);
       printf("---------------------------------\n");
       break;
+
     case 4:
       printf("\n--------- MÚSICA AVANÇADA ---------\n");
       if (currentSong->next == NULL || currentSong == NULL)
         printf('ÚLTIMO ITEM DA LISTA');
       else
         currentSong = currentSong->next;
-
       break;
 
     default:
