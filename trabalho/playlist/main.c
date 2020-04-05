@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "linkedList.h"
-#include "loadPlaylist.h"
-#include "managerMenu.h"
+#include "linkedList.h"   // Carrega arquivo com as funções da lista
+#include "loadPlaylist.h" // Carrega arquivo com a função de gerar a playlist
+#include "managerMenu.h"  // Carrega arquivo com a função de gerenciar o menu da playlist
 
 int main()
 {

@@ -18,6 +18,9 @@ typedef struct Node
   struct Node *prev;
 } Node, *List;
 
+/**
+ *  Cria uma nova lista vazia 
+ **/
 List *createList()
 {
   // Aloca espaço em memória para um novo nó
@@ -28,6 +31,9 @@ List *createList()
   return list;
 }
 
+/**
+ * Limpa todos os items da lista fornecida 
+ **/
 void freeList(List *list)
 {
   if (list != NULL && *list != NULL)
@@ -45,11 +51,17 @@ void freeList(List *list)
   }
 }
 
+/**
+ * Verifica se uma lista está cheia
+*/
 int isFullList(List *list)
 {
-  return 0;
+  return 0; // nunca retorna 1, pois a quantidade de itens é igual a quantidade de memória disponível na máquina do usuário
 }
 
+/**
+ * Verfica se list está vazia, retornando 1 para sim e  para não 
+*/
 int isEmptyList(List *list)
 {
   if (list == NULL || *list == NULL)
@@ -57,6 +69,9 @@ int isEmptyList(List *list)
   return 0;
 }
 
+/**
+ * Insere um novo item no início da lista
+*/
 int insertListBegin(List *list, Song song)
 {
   // lista está vazia?
@@ -78,9 +93,10 @@ int insertListBegin(List *list, Song song)
   else
   {
     Node *aux = *list;
-    while (aux->next != *list)
+    while (aux->next != *list) // percorre a lista até o último item
       aux = aux->next;
 
+    // define os apontamentos de cada nó
     aux->next = node;
     node->prev = aux;
     node->next = *list;
@@ -92,6 +108,9 @@ int insertListBegin(List *list, Song song)
   return 1;
 }
 
+/**
+ * Insere um novo item ao final da lista
+*/
 int insertListEnd(List *list, Song song)
 {
   if (list == NULL)
@@ -111,9 +130,10 @@ int insertListEnd(List *list, Song song)
   else
   {
     Node *aux = *list;
-    while (aux->next != *list)
+    while (aux->next != *list) // percorre a lista até o último item
       aux = aux->next;
 
+    // define os apontamentos de cada nó
     aux->next = node;
     node->prev = aux;
     node->next = *list;

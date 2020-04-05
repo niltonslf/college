@@ -34,7 +34,7 @@ void printSong(Song song)
 void managerMenu(List *playlist)
 {
   int option = -1;
-  while (option != 0)
+  while (option != 0) // LOOP INFINITO COM O MENU
   {
     printf("\n--------- MENU ---------\n");
     printf("1- Ver playlist\n");
@@ -51,7 +51,7 @@ void managerMenu(List *playlist)
     system("clear");
 
     /**
-   *  TRATANTO OPÇÕES DO MEN
+   *  TRATANTO OPÇÕES DO MENU
    **/
     switch (option)
     {
