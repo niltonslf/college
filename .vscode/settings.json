@@ -6,7 +6,9 @@
     "pilhasequencial.h": "c",
     "stdlib.h": "c",
     "pilhafloat.h": "c",
-    "cirularlinkedlist.h": "c"
+    "cirularlinkedlist.h": "c",
+    "loadplaylist.h": "c",
+    "managermenu.h": "c"
   },
   "workbench.colorCustomizations": {
     "activityBar.background": "#65c89b",
