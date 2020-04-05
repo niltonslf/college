@@ -1,5 +1,14 @@
 #include <stdio.h>
-#include "cirularLinkedList.h"
+// #include "cirularLinkedList.h"
+
+typedef struct
+{
+  int matricula;
+  char nome[30];
+  float n1, n2, n3;
+} aluno;
+
+typedef struct elemento *Lista;
 
 typedef struct
 {
@@ -125,40 +134,7 @@ int insere_lista_final(Lista *li, aluno al)
 
 int insere_lista_ordenada(Lista *li, aluno al)
 {
-
-  if (li == NULL)
-    return 0;
-
-  elemento *no = (elemento *)malloc(sizeof(elemento));
-  if (no == NULL)
-    return 0;
-
-  no->dados = al;
-
-  if (*li == NULL) // insere início
-  {
-    *li = no;
-    no->prox = no;
-    return 1;
-  }
-  else
-  {
-
-    if ((*li)->dados.matricula > al.matricula)
-    {
-      elemento *atual = *li;
-      while (atual->prox != *li) // procura o último
-      {
-        atual = atual->prox;
-        no->prox = *li;
-        atual->prox = no;
-        *li = no;
-        return 1;
-      }
-    }
-
-    return 1;
-  }
+  // TODO
 }
 
 int main()
