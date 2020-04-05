@@ -12,6 +12,7 @@ typedef struct Node
 {
   Song item;
   struct Node *next;
+  struct Node *prev;
 } Node, *List;
 
 List *createList()
@@ -69,6 +70,7 @@ int insertListBegin(List *list, Song song)
   {
     *list = node;
     node->next = node;
+    node->prev = node;
   }
   else
   {
@@ -77,7 +79,11 @@ int insertListBegin(List *list, Song song)
       aux = aux->next;
 
     aux->next = node;
+    node->prev = aux;
     node->next = *list;
+
+    node->next->prev = node;
+
     *list = node;
   }
   return 1;
@@ -97,6 +103,7 @@ int insertListEnd(List *list, Song song)
   {
     *list = node;
     node->next = node;
+    node->prev = node;
   }
   else
   {
@@ -105,7 +112,9 @@ int insertListEnd(List *list, Song song)
       aux = aux->next;
 
     aux->next = node;
+    node->prev = aux;
     node->next = *list;
+    node->next->prev = node;
   }
   return 1;
 }
@@ -194,6 +203,13 @@ int main()
     case 4:
       printf("\n--------- MÚSICA AVANÇADA ---------\n");
       *playlist = (*playlist)->next;
+      printf("\n---------TOCANDO ---------\n");
+      printSong((*playlist)->item);
+      break;
+
+    case 5:
+      printf("\n--------- MÚSICA VOLTADA ---------\n");
+      *playlist = (*playlist)->prev;
       printf("\n---------TOCANDO ---------\n");
       printSong((*playlist)->item);
       break;
