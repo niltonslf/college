@@ -15,5 +15,7 @@ int main()
   /* CÓDIGO DO MENU  */
   managerMenu(playlist); // Executa função do menu gerenciador da playlist
 
+  freeList(playlist); // desaloca playlist da memória
+
   return 0;
 }
