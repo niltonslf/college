@@ -7,7 +7,7 @@ void merge(int vetor[], int left, int right, int middle);
 
 int main()
 {
-  int vetor[5] = {7, 8, 1, 9, 70};
+  int vetor[5] = {5, 4, 3, 2, 1};
   mergeSort(vetor, 0, 4);
 
   for (int i = 0; i < 5; i++)
@@ -21,35 +21,55 @@ int main()
  **/
 void merge(int vetor[], int left, int right, int middle)
 {
-  int *aux = (int *)malloc((right - left + 1) * sizeof(int));
-  if (aux == NULL)
-    abort();
+  int i, j, k;
+  int n1 = middle - left + 1;
+  int n2 = right - middle;
 
-  int i, j, k, tam;
-  i = left;
-  j = middle + 1;
-  k = 0;
-  tam = right - left;
+  /* create temp arrays */
+  int Left[n1], Right[n2];
 
-  while (i <= middle && j <= right)
+  /* Copy data to temp arrays Left[] and Right[] */
+  for (i = 0; i < n1; i++)
+    Left[i] = vetor[left + i];
+  for (j = 0; j < n2; j++)
+    Right[j] = vetor[middle + 1 + j];
+
+  /* Merge the temp arrays back into vetor[left..right]*/
+  i = 0;    // Initial index of first subarray
+  j = 0;    // Initial index of second subarray
+  k = left; // Initial index of merged subarray
+  while (i < n1 && j < n2)
   {
-
-    if (vetor[i] < vetor[j])
-      aux[k++] = vetor[i++];
+    if (Left[i] <= Right[j])
+    {
+      vetor[k] = Left[i];
+      i++;
+    }
     else
-      aux[k++] = vetor[j++];
-
-    while (i <= middle)
-      aux[k++] = vetor[i++];
-
-    while (j <= right)
-      aux[k++] = vetor[j++];
+    {
+      vetor[k] = Right[j];
+      j++;
+    }
+    k++;
   }
 
-  for (k = 0; k <= tam; k++)
-    vetor[left + k] = aux[k];
+  /* Copy the remaining elements of Left[], if there 
+       are any */
+  while (i < n1)
+  {
+    vetor[k] = Left[i];
+    i++;
+    k++;
+  }
 
-  free(aux);
+  /* Copy the remaining elements of Right[], if there 
+       are any */
+  while (j < n2)
+  {
+    vetor[k] = Right[j];
+    j++;
+    k++;
+  }
 }
 
 /**
