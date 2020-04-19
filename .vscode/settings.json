@@ -8,7 +8,9 @@
     "pilhafloat.h": "c",
     "cirularlinkedlist.h": "c",
     "loadplaylist.h": "c",
-    "managermenu.h": "c"
+    "managermenu.h": "c",
+    "linkedlist.h": "c",
+    "string.h": "c"
   },
   "workbench.colorCustomizations": {
     "activityBar.background": "#65c89b",
