@@ -77,14 +77,12 @@ int removeNode(Tree *node, Item item)
     else if ((*node)->left != NULL && (*node)->right == NULL)
     { // HÁ ELEMENTOS SOMENTE À ESQUERDA
       printf("\nRemoção - elemento: %d é um possui 1 filho à esquerda.\n", item);
-
       *node = (*node)->left;
       return 1;
     }
     else if ((*node)->left == NULL && (*node)->right != NULL)
     { // HÁ ELEMENTOS SOMENTE À DIREITA
       printf("\nRemoção - elemento: %d é um possui 1 filho à direita.\n", item);
-
       *node = (*node)->right;
       return 1;
     }
@@ -107,8 +105,6 @@ int removeNode(Tree *node, Item item)
       *node = aux;                 // remove elemento trocando o apontamento para o novo elemento
       return 1;
     }
-
-    // -- árvore com único nó
   }
 
   if (item < (*node)->item)

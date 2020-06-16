@@ -10,7 +10,10 @@ int main()
 {
 
   List *playlist = createList(); // inicia uma lista vazia
-  loadPlaylist(playlist);        // carrega a playlist do arquivo txt
+
+  loadPlaylist(playlist); // carrega a playlist do arquivo txt
+
+  printf("test %d", (*playlist)->next);
 
   /* CÓDIGO DO MENU  */
   managerMenu(playlist); // Executa função do menu gerenciador da playlist

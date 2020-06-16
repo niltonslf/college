@@ -14,17 +14,21 @@ int main()
     insertNode(root, 7);
     insertNode(root, 40);
     insertNode(root, 60);
+    insertNode(root, 65);
     insertNode(root, 31);
     insertNode(root, 35);
     insertNode(root, 39);
 
     removeNode(root, 7);
     removeNode(root, 40);
+    removeNode(root, 60);
 
-    printf("DEBUG LEFT: %d \n", (*root)->right->left->item);
-    printf("DEBUG RIGHT: %d \n", (*root)->right->right->item);
+    (*root)->
 
-    printf("\n FIM \n");
+        // printf("DEBUG LEFT: %d \n", (*root)->right->left->item);
+        // printf("DEBUG RIGHT: %d \n", (*root)->right->right->item);
+
+        printf("\n FIM \n");
 
     return 0;
 }

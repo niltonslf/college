@@ -10,7 +10,8 @@
     "loadplaylist.h": "c",
     "managermenu.h": "c",
     "linkedlist.h": "c",
-    "string.h": "c"
+    "string.h": "c",
+    "bubblesort.h": "c"
   },
   "workbench.colorCustomizations": {
     "activityBar.background": "#65c89b",
